@@ -1,0 +1,47 @@
+h1 {
+    color: yellow;
+    margin-left: 10px;
+}
+
+body {
+    background-color: rgb(23, 0, 114);
+}
+
+#idImg {
+    width: 240px;
+    height: 180px;
+    margin-left: 10px;    
+}
+
+#idTime {
+    position: relative;
+    margin-left: 100px;
+    font-size: 120px;
+    color: white;
+    top: -50px;
+    left: -50px;
+}
+
+#idDivBtn {
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#idBtnStart {
+    width: 64px;
+    height: 36px;
+    font-size: large;
+}
+
+#idBtnStop {
+    width: 64px;
+    height: 36px;
+    font-size: large;
+}
+
+#idBtnSwitch {
+    width: 64px;
+    height: 36px;
+    font-size: large;
+}
