@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Practice 1</title>
+    <!--Some exception such that we will put 3rd-party script in the head sometimes-->
+</head>
+<body>
+    <h1>Hello world</h1>
+    <!--Suggest to add script at the end of body, below any other elements-->
+    <!--Because browser parses this file from top to bottom and if the script need more time to parse,-->
+    <!--it will make the elements behind it not able to show until the parsing of script finishes-->
+    <!--Hence, visually user will see some missing part for a while, which is not a good UX-->
+    <script src="js-basic/index.js"></script>
+</body>
+</html>
