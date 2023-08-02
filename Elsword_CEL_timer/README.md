@@ -1,4 +1,5 @@
 # 艾爾之光 宙月天星 星辰預言計時器 Elsword Cel Horary Timer
+![Cover image](./CoverImage.png)
 
 ## 描述 Description
 - 由於星辰預言會根據不同的時間點發動而有不同的效果 為了方便 此計時器可以告訴你當下是哪個效果 且剩餘時間還有多少
