@@ -1,3 +1,4 @@
+/* All rights preversed by Kelvin Chen, DC:kelvin0826 */
 h1 {
     color: yellow;
     margin-left: 10px;
@@ -10,22 +11,40 @@ body {
 #idImg {
     width: 240px;
     height: 180px;
-    margin-left: 10px;    
+    margin-left: 10px;
+    margin-top: 20px;
 }
 
-#idTime {
-    position: relative;
-    margin-left: 100px;
-    font-size: 120px;
+i {
     color: white;
-    top: -50px;
-    left: -50px;
+}
+
+#idState {
+    position: absolute;
+    visibility: hidden;
+    font-size: 50px;
+    top: 100px;
+    left: 270px;
+}
+
+#idSec {
+    position: relative;
+    top: -20px;
+    left: 50px;
+    font-size: 120px;
+}
+
+#idMSec {
+    position: relative;
+    top: -20px;
+    left: 50px;
+    font-size: 120px;
 }
 
 #idDivBtn {
     position: relative;
     margin-left: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #idBtnStart {
