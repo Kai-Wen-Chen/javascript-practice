@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./style/main.css">
-    <title>Bahamut Forum Scraper</title>
-</head>
-<body>
-    <h1>Bahamut Forum Scraper</h1>
-    <hr size="5px" noshade>
-    <div id="idDiv1">
-        <b id="idInput1">Please enter the address: </b> <input id="idAddress" maxlength="100"></input> <button type="button" id="idBtnSearchAddress">Search</button>
-        <!--b id="idState">State: None</b>
-        <button type="button" id="idBtnAgreeToLogin">Login</button-->
-    </div>
-    <div id="idDiv2">
-        <b id="idInput2">Please enter keyword: </b> <input id="idKeyword" maxlength="50" disabled></input> <button type="button" id="idBtnSearchKeyword" disabled>Search</button>
-        <table id="idTable">
-            <tr>
-                <th style="width:10%">Floor</th> <th>Contents</th>
-            </tr>
-            <tr class="DataRow">
-                <td class="CellFloor"></td> <td class="CellContents"></td>
-            </tr>
-        </table>
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="./style/main.css">
+        <title>Bahamut Forum Scraper</title>
+    </head>
+    <body>
+        <h1>Bahamut Forum Scraper</h1>
+        <hr size="5px" noshade>
+        <div id="idDiv1">
+            <b id="idInput1">Please enter the address: </b> <input id="idAddress" maxlength="100"></input> <button type="button" id="idBtnSearchAddress">Search</button>
+            <!--b id="idState">State: None</b>
+            <button type="button" id="idBtnAgreeToLogin">Login</button-->
+        </div>
+        <div id="idDiv2">
+            <b id="idInput2">Please enter keyword: </b> <input id="idKeyword" maxlength="50" disabled></input> <button type="button" id="idBtnSearchKeyword" disabled>Search</button>
+            <table id="idTable">
+                <tr>
+                    <th style="width:10%">Floor</th> <th>Contents</th>
+                </tr>
+                <tr class="DataRow">
+                    <td class="CellFloor"></td> <td class="CellContents"></td>
+                </tr>
+                <tr class="DataRow">
+                    <td class="CellFloor"></td> <td class="CellContents"></td>
+                </tr>
+                <tr class="DataRow">
+                    <td class="CellFloor"></td> <td class="CellContents"></td>
+                </tr>
+                <tr class="DataRow">
+                    <td class="CellFloor"></td> <td class="CellContents"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+    <script src="./script/GlobalVariables.js"></script>
+    <script src="./script/Utility.js"></script>
+    <script src="./script/Search.js"></script>
+    <script src="./script/Input.js"></script>
 </html>

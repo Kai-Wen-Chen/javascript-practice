@@ -12,6 +12,10 @@ table, th, td {
     border: 1px solid black;
 }
 
+tr:nth-child(even) {
+    background-color: rgb(252, 246, 238);
+}
+
 b {
     color: rgb(255, 246, 235);
 }
@@ -88,16 +92,12 @@ hr {
 }
 
 .DataRow {
-    height: 200px;
+    height: 100px;
     background-color: white;
 }
 
-.CellContents {
-    background-color: rgb(252, 246, 238);
-}
-
 .DataRow:hover {
-    background-color: aqua;
-    opacity: 50%;
+    background-color: rgb(133, 251, 251);
+    opacity: 80%;
 }
 
