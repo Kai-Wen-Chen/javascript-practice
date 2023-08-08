@@ -13,6 +13,8 @@ app.get('/', (req, res) => {
     res.end();
 });
 
+const axios = require('axios');
+
 app.post('/', (req, res) => {
     let body = '';
     let req_body = null;
@@ -28,14 +30,15 @@ app.post('/', (req, res) => {
             res.setHeader('Content-Type', 'application/json');
             res.writeHead(200);
             res.end(`{"action": "updateKeywordUI", "arguments": [true]}`)
-        } else if (req_body.method === 'onClickSearchBtn') {
-            console.log('click search btn');
-            // TODO: access to destination of url and check if it is valid page
-            res.setHeader('Content-Type', 'application/json');
-            res.writeHead(200);
-            res.end(`{"action": "updateKeywordUI", "arguments": [false]}`)
+        } else if (req_body.method === 'onClickSearchAddressBtn') {
+            console.log('click search address');
+            AccessURL(res, req_body.value);
         } else if (req_body.method === 'onInputKeyword') {
             console.log(req_body.value);
+            res.end('ok');
+        } else if (req_body.method === 'onClickSearchKeywordBtn') {
+            console.log('click search keyword');
+            // TODO: search contents by keyword
             res.end('ok');
         } else
             res.end('ok');
@@ -48,3 +51,24 @@ const port = 3000;
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+/* ----------- Request handler function ------------- */
+function AccessURL(res, url=null) {
+    if (!url || url === null || !url.startsWith('https://forum.gamer.com.tw/C.php')) {
+        res.writeHead(404);
+        res.end('wrong url');
+        return;
+    }
+    
+    axios.get(url)
+            .then((axios_res) => {
+                res.setHeader('Content-Type', 'text/html');
+                res.writeHead(200);
+                res.end(axios_res.data);
+            })
+            .catch((error) => {
+                res.writeHead(404);
+                res.end('wrong url');
+            });
+}
+

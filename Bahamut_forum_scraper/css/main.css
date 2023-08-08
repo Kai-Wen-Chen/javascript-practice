@@ -77,7 +77,6 @@ hr {
 #idKeyword {
     width: 380px;
     height: 20px;
-    
 }
 
 #idBtnSearchKeyword {
@@ -101,3 +100,9 @@ hr {
     opacity: 80%;
 }
 
+.CellContents {
+    text-align: left;
+    vertical-align: top;
+    padding-top: 5px;
+    padding-left: 5px
+}
