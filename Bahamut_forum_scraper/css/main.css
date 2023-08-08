@@ -1,0 +1,103 @@
+body {
+    background-color: rgb(84, 204, 194);
+}
+
+h1 {
+    font-size: 50px;
+    color: rgb(255, 246, 235);
+    margin-left: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(252, 246, 238);
+}
+
+b {
+    color: rgb(255, 246, 235);
+}
+
+th {
+    background-color: white;
+    font-size: 20px;
+}
+
+hr {
+    background-color: white;
+    width: 97%;
+}
+
+/* ----------------- Div 1 ------------------- */
+#idDiv1 {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#idInput1 {
+    font-size: 20px;
+}
+
+#idAddress {
+    width: 700px;
+    height: 20px;
+}
+
+#idBtnSearchAddress {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+#idState {
+    position: relative;
+    top: 40px;
+    left: -73%;
+    font-size: 20px;
+}
+
+#idBtnAgreeToLogin {
+    position: relative;
+    top: 40px;
+    left: -70%;
+    font-size: 16px;
+}
+
+/* ----------------- Div 2 ------------------- */
+#idDiv2 {
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+#idInput2 {
+    font-size: 20px;
+}
+
+#idKeyword {
+    width: 380px;
+    height: 20px;
+    
+}
+
+#idBtnSearchKeyword {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+#idTable {
+    width: 90%;
+    height: 50%;
+    margin-top: 20px;
+}
+
+.DataRow {
+    height: 100px;
+    background-color: white;
+}
+
+.DataRow:hover {
+    background-color: rgb(133, 251, 251);
+    opacity: 80%;
+}
+
