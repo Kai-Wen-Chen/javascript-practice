@@ -1,6 +1,8 @@
 const hostname = 'localhost';
 const port = 3000;
 let ADDRESS = null;
+let KEYWORD = null;
+let WEBSITE_HTML = null;
 
 const WebsiteValid = {
     Invalid: 0,
@@ -29,6 +31,47 @@ function createRequestBody(value, key=null) {
         body[key[i]] = value[i];
 
     return body;
+}
+
+function getTotalPage() {
+    let dummyHTML = document.createElement('html');
+    dummyHTML.innerHTML = WEBSITE_HTML;
+
+    let p_pageBtn = dummyHTML.getElementsByClassName('BH-pagebtnA');
+    if (p_pageBtn) {
+        //console.log(p_pageBtn[0].lastChild.textContent);
+        return parseInt(p_pageBtn[0].lastChild.textContent);
+    }
+
+    return 0;
+}
+
+function requestPage(cur_page, total_page, cur_address) {
+    let body = createRequestBody(value=['onClickSearchKeywordBtn', cur_address]);
+    fetch(`http://${hostname}:${port}`, {
+        method: 'POST',
+        body: JSON.stringify(body)
+    })
+        .then((response) => {
+            if (!response.ok)
+                throw new Error(`HTTP error: ${response.status}`);
+            return response.text();
+        })
+        .then((text) => {
+            //console.log(text);
+            let event = new Event('updateContent');
+            let table = document.getElementById('idTable');
+            table.dispatchEvent(event, text);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+        .finally(() => {
+            if (cur_page < total_page) {
+                // TODO: Update cur_address
+                requestPage(cur_page + 1, total_page, cur_address);
+            }
+        });
 }
 
 // Address input event
@@ -77,14 +120,17 @@ function createRequestBody(value, key=null) {
             })
             .then((text) => {
                 //console.log(text);
-                // TODO: check if the website is valid
                 let state = checkWebsiteValid(text);
-                if (state === WebsiteValid.Valid)
+                if (state === WebsiteValid.Valid) {
+                    WEBSITE_HTML = text;
                     updateKeywordUI(false);
+                }
                 else if (state === WebsiteValid.NeedLogin) {
                     console.log('need login');
+                    updateKeywordUI(true);
+                    // TODO: Do login or cancel
                 } else {
-
+                    updateKeywordUI(true);
                 }
             })
             .catch((error) => {});
@@ -128,6 +174,7 @@ function createRequestBody(value, key=null) {
     inputKeyword.addEventListener('input', onInput);
 
     function onInput() {
+        KEYWORD = inputKeyword.value;
         let body = createRequestBody(value=['onInputKeyword', inputKeyword.value]);
         fetch(`http://${hostname}:${port}`, {
             method: 'POST',
@@ -148,7 +195,18 @@ function createRequestBody(value, key=null) {
     btnSearchKeyword.addEventListener('click', onClick);
 
     function onClick() {
-        let body = createRequestBody(value=['onClickSearchKeywordBtn', null]);
+        let totalPage = getTotalPage();
+        if (totalPage === 0) {
+            console.log('no page, do nothing');
+            return;
+        }
+
+        let currentPage = 1;
+        let currentAddress = ADDRESS;
+        // TODO: use total page rather than 1
+        requestPage(currentPage, 1, currentAddress);
+        /*
+        let body = createRequestBody(value=['onClickSearchKeywordBtn', currentAddress]);
         fetch(`http://${hostname}:${port}`, {
             method: 'POST',
             body: JSON.stringify(body)
@@ -164,6 +222,15 @@ function createRequestBody(value, key=null) {
                 let table = document.getElementById('idTable');
                 table.dispatchEvent(event);
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error);
+                totalPage = -1;
+            })
+            .finally(() => {
+                if (currentPage < totalPage) {
+                    currentPage++;
+                }
+            });
+        */
     };
 }

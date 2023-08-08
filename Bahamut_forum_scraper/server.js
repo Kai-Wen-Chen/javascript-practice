@@ -53,22 +53,37 @@ server.listen(port, hostname, () => {
 });
 
 /* ----------- Request handler function ------------- */
+const domain = 'https://forum.gamer.com.tw/C.php';
+
 function AccessURL(res, url=null) {
-    if (!url || url === null || !url.startsWith('https://forum.gamer.com.tw/C.php')) {
+    if (!url || !url.startsWith(domain)) {
         res.writeHead(404);
         res.end('wrong url');
         return;
     }
     
     axios.get(url)
-            .then((axios_res) => {
-                res.setHeader('Content-Type', 'text/html');
-                res.writeHead(200);
-                res.end(axios_res.data);
-            })
-            .catch((error) => {
-                res.writeHead(404);
-                res.end('wrong url');
-            });
+        .then((axios_res) => {
+            res.setHeader('Content-Type', 'text/html');
+            res.writeHead(200);
+            res.end(axios_res.data);
+        })
+        .catch((error) => {
+            res.writeHead(404);
+            res.end('wrong url');
+        });
+}
+
+function SearchContents(res, url=null, keyword=null) {
+    if (!keyword || !url || !url.startsWith(domain)) {
+        res.writeHead(404);
+        res.end('wrong keyword');
+        return;
+    }
+
+    axios.get(url)
+        .then((axios_res) => {
+            
+        })
 }
 
