@@ -61,7 +61,7 @@ function requestPage(cur_page, total_page, cur_address) {
             //console.log(text);
             let event = new Event('updateContent');
             let table = document.getElementById('idTable');
-            table.dispatchEvent(event, text);
+            table.dispatchEvent(event);
         })
         .catch((error) => {
             console.error(error);
