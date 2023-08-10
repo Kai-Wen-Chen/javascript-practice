@@ -1,7 +1,7 @@
 const hostname = 'localhost';
 const port = 3000;
 let ADDRESS = null;
-let KEYWORD = null;
+let KEYWORD = '';
 let WEBSITE_HTML = null;
 
 const WebsiteValid = {
@@ -9,42 +9,6 @@ const WebsiteValid = {
     Valid: 1,
     NeedLogin: 2
 };
-
-function updateKeywordUI(disabled=false) {
-    let inputKeyword = document.getElementById('idKeyword');
-    let idBtnSearchKeyword = document.getElementById('idBtnSearchKeyword');
-    inputKeyword.disabled = disabled;
-    idBtnSearchKeyword.disabled = disabled;
-};
-
-function createRequestBody(value, key=null) {
-    if (key === null)
-        key = ['method', 'value'];
-    
-    if (!key || !value || key.length != value.length) {
-        console.log('wrong request body key-value');
-        return {};
-    }
-
-    let body = {};
-    for (let i=0; i<key.length; i++)
-        body[key[i]] = value[i];
-
-    return body;
-}
-
-function getTotalPage() {
-    let dummyHTML = document.createElement('html');
-    dummyHTML.innerHTML = WEBSITE_HTML;
-
-    let p_pageBtn = dummyHTML.getElementsByClassName('BH-pagebtnA');
-    if (p_pageBtn) {
-        //console.log(p_pageBtn[0].lastChild.textContent);
-        return parseInt(p_pageBtn[0].lastChild.textContent);
-    }
-
-    return 0;
-}
 
 function requestPage(cur_page, total_page, cur_address) {
     let body = createRequestBody(value=['onClickSearchKeywordBtn', cur_address]);
@@ -195,6 +159,8 @@ function requestPage(cur_page, total_page, cur_address) {
     btnSearchKeyword.addEventListener('click', onClick);
 
     function onClick() {
+        clearTableUI();
+        
         let totalPage = getTotalPage();
         if (totalPage === 0) {
             console.log('no page, do nothing');
@@ -205,32 +171,6 @@ function requestPage(cur_page, total_page, cur_address) {
         let currentAddress = ADDRESS;
         // TODO: use total page rather than 1
         requestPage(currentPage, 1, currentAddress);
-        /*
-        let body = createRequestBody(value=['onClickSearchKeywordBtn', currentAddress]);
-        fetch(`http://${hostname}:${port}`, {
-            method: 'POST',
-            body: JSON.stringify(body)
-        })
-            .then((response) => {
-                if (!response.ok)
-                    throw new Error(`HTTP error: ${response.status}`);
-                return response.text();
-            })
-            .then((text) => {
-                //console.log(json);
-                let event = new Event('updateContent');
-                let table = document.getElementById('idTable');
-                table.dispatchEvent(event);
-            })
-            .catch((error) => {
-                console.error(error);
-                totalPage = -1;
-            })
-            .finally(() => {
-                if (currentPage < totalPage) {
-                    currentPage++;
-                }
-            });
-        */
+        
     };
 }
