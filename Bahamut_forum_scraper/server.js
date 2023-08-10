@@ -74,16 +74,3 @@ function AccessURL(res, url=null) {
         });
 }
 
-function SearchContents(res, url=null, keyword=null) {
-    if (!keyword || !url || !url.startsWith(domain)) {
-        res.writeHead(404);
-        res.end('wrong keyword');
-        return;
-    }
-
-    axios.get(url)
-        .then((axios_res) => {
-            
-        })
-}
-

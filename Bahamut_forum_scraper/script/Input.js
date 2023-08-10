@@ -1,9 +1,3 @@
-const hostname = 'localhost';
-const port = 3000;
-let ADDRESS = null;
-let KEYWORD = '';
-let WEBSITE_HTML = null;
-
 const WebsiteValid = {
     Invalid: 0,
     Valid: 1,
@@ -12,7 +6,7 @@ const WebsiteValid = {
 
 function requestPage(cur_page, total_page, cur_address) {
     let body = createRequestBody(value=['onClickSearchKeywordBtn', cur_address]);
-    fetch(`http://${hostname}:${port}`, {
+    fetch(`http://${HOSTNAME}:${PORT}`, {
         method: 'POST',
         body: JSON.stringify(body)
     })
@@ -24,7 +18,7 @@ function requestPage(cur_page, total_page, cur_address) {
         .then((text) => {
             //console.log(text);
             let event = new Event('updateContent');
-            let table = document.getElementById('idTable');
+            let table = document.getElementById(ElementId.ID_TABLE);
             table.dispatchEvent(event);
         })
         .catch((error) => {
@@ -40,13 +34,13 @@ function requestPage(cur_page, total_page, cur_address) {
 
 // Address input event
 {
-    let inputAddress = document.getElementById('idAddress');
+    let inputAddress = document.getElementById(ElementId.ID_ADDRESS);
     inputAddress.addEventListener('input', onInput);
 
     function onInput() {
         ADDRESS = inputAddress.value;
         let body = createRequestBody(value=['onInputAddress', inputAddress.value]);
-        fetch(`http://${hostname}:${port}`, {
+        fetch(`http://${HOSTNAME}:${PORT}`, {
             method: 'POST',
             body: JSON.stringify(body)
         })
@@ -70,12 +64,12 @@ function requestPage(cur_page, total_page, cur_address) {
 
 // Address search button event
 {
-    let btnSearchAddress = document.getElementById('idBtnSearchAddress');
+    let btnSearchAddress = document.getElementById(ElementId.ID_BTN_SEARCH_ADDRESS);
     btnSearchAddress.addEventListener('click', onClick);
 
     function onClick() {
         let body = createRequestBody(value=['onClickSearchAddressBtn', ADDRESS]);
-        fetch(`http://${hostname}:${port}`, {
+        fetch(`http://${HOSTNAME}:${PORT}`, {
             method: 'POST',
             body: JSON.stringify(body)
         })
@@ -134,13 +128,13 @@ function requestPage(cur_page, total_page, cur_address) {
 
 // Keyword input event
 {
-    let inputKeyword = document.getElementById('idKeyword');
+    let inputKeyword = document.getElementById(ElementId.ID_KEYWORD);
     inputKeyword.addEventListener('input', onInput);
 
     function onInput() {
         KEYWORD = inputKeyword.value;
         let body = createRequestBody(value=['onInputKeyword', inputKeyword.value]);
-        fetch(`http://${hostname}:${port}`, {
+        fetch(`http://${HOSTNAME}:${PORT}`, {
             method: 'POST',
             body: JSON.stringify(body)
         })
@@ -155,7 +149,7 @@ function requestPage(cur_page, total_page, cur_address) {
 
 // Keyword search button event
 {
-    let btnSearchKeyword = document.getElementById('idBtnSearchKeyword');
+    let btnSearchKeyword = document.getElementById(ElementId.ID_BTN_SEARCH_KEYWORD);
     btnSearchKeyword.addEventListener('click', onClick);
 
     function onClick() {
@@ -171,6 +165,5 @@ function requestPage(cur_page, total_page, cur_address) {
         let currentAddress = ADDRESS;
         // TODO: use total page rather than 1
         requestPage(currentPage, 1, currentAddress);
-        
     };
 }

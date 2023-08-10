@@ -1,12 +1,44 @@
+const HOSTNAME = 'localhost';
+const PORT = 3000;
+let ADDRESS = null;
+let KEYWORD = '';
+let WEBSITE_HTML = null;
+
+const ElementId = {
+    ID_ADDRESS: 'idAddress',
+    ID_KEYWORD: 'idKeyword',
+    ID_BTN_SEARCH_ADDRESS: 'idBtnSearchAddress',
+    ID_BTN_SEARCH_KEYWORD: 'idBtnSearchKeyword',
+    ID_TABLE: 'idTable',
+}
+
+const ElementClass = {
+    CLASS_DATA_ROW: 'DataRow',
+    CLASS_CELL_FLOOR: 'CellFloor',
+    CLASS_CELL_CONTENT: 'CellContent',
+    CLASS_PAGE_BTN: 'BH-pagebtnA',
+    CLASS_SECTION_MAIN_POST: 'c-section__main c-post',
+    CLASS_ARTICLE: 'c-article FM-P2',
+    CLASS_GPBP_FLOOR: 'floor tippy-gpbp',
+}
+
+class ResultObj {
+    constructor(f_list = null, c_list = null) {
+        this.floor_list = f_list;
+        this.content_list = c_list;
+        this.length = f_list.length;
+    }
+};
+
 function updateKeywordUI(disabled=false) {
-    let inputKeyword = document.getElementById('idKeyword');
-    let idBtnSearchKeyword = document.getElementById('idBtnSearchKeyword');
+    let inputKeyword = document.getElementById(ElementId.ID_KEYWORD);
+    let idBtnSearchKeyword = document.getElementById(ElementId.ID_BTN_SEARCH_KEYWORD);
     inputKeyword.disabled = disabled;
     idBtnSearchKeyword.disabled = disabled;
 };
 
 function clearTableUI() {
-    let rows = document.getElementsByClassName('DataRow');
+    let rows = document.getElementsByClassName(ElementClass.CLASS_DATA_ROW);
     let rows_length = rows.length;
     for (let i=0; i<rows_length; i++)
         rows[0].remove();
@@ -32,7 +64,7 @@ function getTotalPage() {
     let dummyHTML = document.createElement('html');
     dummyHTML.innerHTML = WEBSITE_HTML;
 
-    let p_pageBtn = dummyHTML.getElementsByClassName('BH-pagebtnA');
+    let p_pageBtn = dummyHTML.getElementsByClassName(ElementClass.CLASS_PAGE_BTN);
     if (p_pageBtn) {
         //console.log(p_pageBtn[0].lastChild.textContent);
         return parseInt(p_pageBtn[0].lastChild.textContent);
@@ -40,13 +72,6 @@ function getTotalPage() {
 
     return 0;
 }
-class ResultObj {
-    constructor(f_list = null, c_list = null) {
-        this.floor_list = f_list;
-        this.content_list = c_list;
-        this.length = f_list.length;
-    }
-};
 
 function extractContent(keyword='') {
     let data = WEBSITE_HTML;
@@ -54,11 +79,11 @@ function extractContent(keyword='') {
     let dummyHTML = document.createElement('html');
     dummyHTML.innerHTML = data;
 
-    let section_main_post = dummyHTML.getElementsByClassName('c-section__main c-post');
+    let section_main_post = dummyHTML.getElementsByClassName(ElementClass.CLASS_SECTION_MAIN_POST);
     let floor_list = [];
     let content_list = [];
     for (let i=0; i<section_main_post.length; i++) {
-        let contents = section_main_post[i].getElementsByClassName('c-article FM-P2');
+        let contents = section_main_post[i].getElementsByClassName(ElementClass.CLASS_ARTICLE);
         if (!contents) {
             console.log('wrong content');
             continue;
@@ -80,7 +105,7 @@ function extractContent(keyword='') {
         
         //console.log(text);
         if (text.search(keyword) != -1) {
-            let floor = section_main_post[i].getElementsByClassName('floor tippy-gpbp');
+            let floor = section_main_post[i].getElementsByClassName(ElementClass.CLASS_GPBP_FLOOR);
             floor_list.push(floor[0].dataset.floor);
             content_list.push(text);
         }
