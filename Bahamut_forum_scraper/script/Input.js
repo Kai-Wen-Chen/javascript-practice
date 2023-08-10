@@ -1,9 +1,3 @@
-const WebsiteValid = {
-    Invalid: 0,
-    Valid: 1,
-    NeedLogin: 2
-};
-
 function requestPage(cur_page, total_page, cur_address) {
     let body = createRequestBody(value=['onClickSearchKeywordBtn', cur_address]);
     fetch(`http://${HOSTNAME}:${PORT}`, {
@@ -30,6 +24,26 @@ function requestPage(cur_page, total_page, cur_address) {
                 requestPage(cur_page + 1, total_page, cur_address);
             }
         });
+}
+
+function requestLogin() {
+    // TODO: Handle login response
+    let body = createRequestBody(value=['onRequestLogin', ['', '']]);
+    fetch(`http://${HOSTNAME}:${PORT}`, {
+        method: 'POST',
+        body: JSON.stringify(body)
+    })
+        .then((response) => {
+            if (!response.ok)
+                throw new Error(`HTTP error: ${response.status}`);
+            return response.text();
+        })
+        .then((text) => {
+            console.log(text);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
 }
 
 // Address input event
@@ -79,6 +93,7 @@ function requestPage(cur_page, total_page, cur_address) {
             .then((text) => {
                 //console.log(text);
                 let state = checkWebsiteValid(text);
+                updateStateUI(state);
                 if (state === WebsiteValid.Valid) {
                     WEBSITE_HTML = text;
                     updateKeywordUI(false);
@@ -87,6 +102,7 @@ function requestPage(cur_page, total_page, cur_address) {
                     console.log('need login');
                     updateKeywordUI(true);
                     // TODO: Do login or cancel
+                    requestLogin();
                 } else {
                     updateKeywordUI(true);
                 }

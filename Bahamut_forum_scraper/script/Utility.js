@@ -10,6 +10,7 @@ const ElementId = {
     ID_BTN_SEARCH_ADDRESS: 'idBtnSearchAddress',
     ID_BTN_SEARCH_KEYWORD: 'idBtnSearchKeyword',
     ID_TABLE: 'idTable',
+    ID_STATE: 'idState'
 }
 
 const ElementClass = {
@@ -21,6 +22,12 @@ const ElementClass = {
     CLASS_ARTICLE: 'c-article FM-P2',
     CLASS_GPBP_FLOOR: 'floor tippy-gpbp',
 }
+
+const WebsiteValid = {
+    Invalid: 0,
+    Valid: 1,
+    NeedLogin: 2
+};
 
 class ResultObj {
     constructor(f_list = null, c_list = null) {
@@ -42,6 +49,24 @@ function clearTableUI() {
     let rows_length = rows.length;
     for (let i=0; i<rows_length; i++)
         rows[0].remove();
+}
+
+function updateStateUI(state) {
+    let stateText = document.getElementById(ElementId.ID_STATE);
+    if (state === WebsiteValid.Invalid) {
+        stateText.textContent = 'Access failed';
+        stateText.style.color = 'red';
+    } else if (state === WebsiteValid.NeedLogin) {
+        stateText.textContent = 'Need login';
+        stateText.style.color = 'yellow';
+        // TODO: Add a dialog to let them login onsite
+    } else if (state === WebsiteValid.Valid) {
+        stateText.textContent = 'Access succeeded';
+        stateText.style.color = 'rgb(0, 255, 0)';
+    } else {
+        stateText.textContent = 'None';
+        stateText.style.color = 'white';
+    }
 }
 
 function createRequestBody(value, key=null) {

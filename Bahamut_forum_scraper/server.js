@@ -40,6 +40,13 @@ app.post('/', (req, res) => {
             console.log('click search keyword');
             // TODO: search contents by keyword
             res.end('ok');
+        } else if (req_body.method === 'onRequestLogin') {
+            console.log('request login');
+            if (req_body.value.length != 2) {
+                res.writeHead(404);
+                res.end('wrong account or password');
+            } else
+                Login(req_body.value[0], req_body.value[1], res);
         } else
             res.end('ok');
     });
@@ -72,5 +79,10 @@ function AccessURL(res, url=null) {
             res.writeHead(404);
             res.end('wrong url');
         });
+}
+
+function Login(account, password, res) {
+    // TODO: handle login
+    res.end('ok');
 }
 
