@@ -1,8 +1,11 @@
 const HOSTNAME = 'localhost';
 const PORT = 3000;
+const PAGE_URL_PIECE = 'page='
 let ADDRESS = null;
+let START_ADDRESS = null;
 let KEYWORD = '';
 let WEBSITE_HTML = null;
+let IS_LOADING = false;
 
 const ElementId = {
     ID_ADDRESS: 'idAddress',
@@ -67,6 +70,14 @@ function updateStateUI(state) {
         stateText.textContent = 'None';
         stateText.style.color = 'white';
     }
+}
+
+function updateUIForSearching() {
+    document.getElementById(ElementId.ID_BTN_SEARCH_ADDRESS).disabled = IS_LOADING;
+    document.getElementById(ElementId.ID_ADDRESS).disabled = IS_LOADING;
+    document.getElementById(ElementId.ID_BTN_SEARCH_KEYWORD).disabled = IS_LOADING;
+    document.getElementById(ElementId.ID_KEYWORD).disabled = IS_LOADING;
+    //TODO: Show/Hide loading message or waiting cursor
 }
 
 function createRequestBody(value, key=null) {
@@ -139,4 +150,25 @@ function extractContent(keyword='') {
     //console.log(floor_list);
     //console.log(content_list);
     return new ResultObj(floor_list, content_list);
+}
+
+function initializeURL() {
+    let currentAddress = ADDRESS;
+    let page_index = currentAddress.search(PAGE_URL_PIECE);
+    console.log(page_index);
+    if (page_index === -1)
+        return currentAddress;
+
+    let page_index_end = page_index + PAGE_URL_PIECE.length;
+    while (currentAddress[page_index_end] !== '&')
+        page_index_end++;
+
+    currentAddress = currentAddress.replace(currentAddress.substr(page_index, page_index_end - page_index + 1), '');
+    console.log(currentAddress);
+
+    return currentAddress;
+}
+
+function appendPageToURL(url, page=1) {
+    return url + '&' + PAGE_URL_PIECE + page.toString();
 }

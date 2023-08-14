@@ -1,5 +1,7 @@
-function requestPage(cur_page, total_page, cur_address) {
+function requestPage(cur_page, total_page) {
+    let cur_address = appendPageToURL(START_ADDRESS, cur_page);
     let body = createRequestBody(value=['onClickSearchKeywordBtn', cur_address]);
+    let error_occur = false;
     fetch(`http://${HOSTNAME}:${PORT}`, {
         method: 'POST',
         body: JSON.stringify(body)
@@ -11,17 +13,24 @@ function requestPage(cur_page, total_page, cur_address) {
         })
         .then((text) => {
             //console.log(text);
+            WEBSITE_HTML = text;
             let event = new Event('updateContent');
             let table = document.getElementById(ElementId.ID_TABLE);
             table.dispatchEvent(event);
         })
         .catch((error) => {
             console.error(error);
+            error_occur = true;
         })
         .finally(() => {
-            if (cur_page < total_page) {
-                // TODO: Update cur_address
-                requestPage(cur_page + 1, total_page, cur_address);
+            if (!error_occur && cur_page < total_page) {
+                let delay = Math.floor(Math.random()); // random delay [0.0, 1.0) seconds
+                setTimeout(() => {}, delay);
+                requestPage(cur_page + 1, total_page);
+            } else {
+                IS_LOADING = false;
+                updateUIForSearching();
+                console.log('done');
             }
         });
 }
@@ -169,6 +178,7 @@ function requestLogin() {
     btnSearchKeyword.addEventListener('click', onClick);
 
     function onClick() {
+        START_ADDRESS = null;
         clearTableUI();
         
         let totalPage = getTotalPage();
@@ -176,10 +186,10 @@ function requestLogin() {
             console.log('no page, do nothing');
             return;
         }
-
-        let currentPage = 1;
-        let currentAddress = ADDRESS;
-        // TODO: use total page rather than 1
-        requestPage(currentPage, 1, currentAddress);
+        
+        IS_LOADING = true;
+        updateUIForSearching();
+        START_ADDRESS = initializeURL();
+        requestPage(1, totalPage);
     };
 }

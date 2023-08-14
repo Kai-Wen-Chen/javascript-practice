@@ -26,20 +26,18 @@ app.post('/', (req, res) => {
     req.on('end', () => {
         //console.log(req_body);
         if (req_body.method === 'onInputAddress') {
-            console.log(req_body.value);
+            //console.log(req_body.value);
             res.setHeader('Content-Type', 'application/json');
             res.writeHead(200);
             res.end(`{"action": "updateKeywordUI", "arguments": [true]}`)
         } else if (req_body.method === 'onClickSearchAddressBtn') {
-            console.log('click search address');
+            //console.log('click search address');
             AccessURL(res, req_body.value);
         } else if (req_body.method === 'onInputKeyword') {
-            console.log(req_body.value);
+            //console.log(req_body.value);
             res.end('ok');
         } else if (req_body.method === 'onClickSearchKeywordBtn') {
-            console.log('click search keyword');
-            // TODO: search contents by keyword
-            res.end('ok');
+            AccessURL(res, req_body.value);
         } else if (req_body.method === 'onRequestLogin') {
             console.log('request login');
             if (req_body.value.length != 2) {
