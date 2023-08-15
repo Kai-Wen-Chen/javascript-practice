@@ -15,7 +15,12 @@ const ElementId = {
     ID_BTN_SEARCH_KEYWORD: 'idBtnSearchKeyword',
     ID_BTN_CANCEL: 'idBtnCancel',
     ID_TABLE: 'idTable',
-    ID_STATE: 'idState'
+    ID_STATE: 'idState',
+    ID_LOGIN_DIALOG: 'idLoginDialog',
+    ID_BTN_LOGIN: 'idBtnLogin',
+    ID_BTN_CANCEL_LOGIN: 'idBtnCancelLogin',
+    ID_ACCOUNT: 'idAccount',
+    ID_PASSWORD: 'idPassword'
 }
 
 const ElementClass = {
@@ -173,4 +178,24 @@ function initializeURL() {
 
 function appendPageToURL(url, page=1) {
     return url + '&' + PAGE_URL_PIECE + page.toString();
+}
+
+function requestLogin(account='', password='') {
+    // TODO: Handle login response
+    let body = createRequestBody(value=['onRequestLogin', [ADDRESS, account, password]]);
+    fetch(`http://${HOSTNAME}:${PORT}`, {
+        method: 'POST',
+        body: JSON.stringify(body)
+    })
+        .then((response) => {
+            if (!response.ok)
+                throw new Error(`HTTP error: ${response.status}`);
+            return response.text();
+        })
+        .then((text) => {
+            console.log(text);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
 }

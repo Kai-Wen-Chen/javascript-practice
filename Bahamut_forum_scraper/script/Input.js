@@ -39,26 +39,6 @@ function requestPage(cur_page, total_page) {
         });
 }
 
-function requestLogin() {
-    // TODO: Handle login response
-    let body = createRequestBody(value=['onRequestLogin', ['', '']]);
-    fetch(`http://${HOSTNAME}:${PORT}`, {
-        method: 'POST',
-        body: JSON.stringify(body)
-    })
-        .then((response) => {
-            if (!response.ok)
-                throw new Error(`HTTP error: ${response.status}`);
-            return response.text();
-        })
-        .then((text) => {
-            console.log(text);
-        })
-        .catch((error) => {
-            console.error(error);
-        })
-}
-
 // Address input event
 {
     let inputAddress = document.getElementById(ElementId.ID_ADDRESS);
@@ -114,8 +94,7 @@ function requestLogin() {
                 else if (state === WebsiteValid.NeedLogin) {
                     console.log('need login');
                     updateKeywordUI(true);
-                    // TODO: Do login or cancel
-                    requestLogin();
+                    showLoginDialog();
                 } else {
                     updateKeywordUI(true);
                 }

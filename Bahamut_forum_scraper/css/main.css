@@ -52,15 +52,15 @@ hr {
 
 #idStateTitle {
     position: relative;
-    top: 30px;
-    left: -75%;
+    top: 5px;
+    left: 30px;
     font-size: 20px;
 }
 
 #idState {
     position: relative;
-    top: 30px;
-    left: -75%;
+    top: 5px;
+    left: 30px;
     font-size: 20px;
     color: white;
 }
@@ -74,7 +74,7 @@ hr {
 
 /* ----------------- Div 2 ------------------- */
 #idDiv2 {
-    margin-top: 40px;
+    margin-top: 20px;
     margin-left: 30px;
 }
 
@@ -117,4 +117,30 @@ hr {
     vertical-align: top;
     padding-top: 5px;
     padding-left: 5px
+}
+
+/* ----------------- Dialog ------------------- */
+#idLoginDialog {
+    width: 400px;
+    height: 160px;
+    font-size: 20px;
+    background-color:rgb(252, 246, 238);
+}
+
+#idAccount {
+    margin-left: 8px;
+}
+
+#idDiv3 {
+    margin-top: 25px;
+}
+
+#idBtnLogin {
+    font-size: 16px;
+    margin-left: 62%;
+}
+
+#idBtnCancelLogin {
+    font-size: 16px;
+    margin-left: 15px;
 }

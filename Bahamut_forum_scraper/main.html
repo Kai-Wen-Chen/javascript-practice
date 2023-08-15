@@ -12,7 +12,9 @@
         <div id="idDiv1">
             <!-- TODO: Instead of whole address, use bsn (for board) and snA (for forum) -->
             <b id="idInput1">Please enter the address: </b> <input id="idAddress" maxlength="100"></input> <button type="button" id="idBtnSearchAddress">Search</button>
-            <b id="idStateTitle">State: </b> <i id="idState">None</i>
+            <div>
+                <b id="idStateTitle">State: </b> <i id="idState">None</i>
+            </div>
         </div>
         <div id="idDiv2">
             <b id="idInput2">Please enter keyword: </b> <input id="idKeyword" maxlength="50" disabled></input> <button type="button" id="idBtnSearchKeyword" disabled>Search</button> <button type="button" id="idBtnCancel" disabled>Cancel</button>
@@ -22,8 +24,30 @@
                 </tr>
             </table>
         </div>
+        <dialog id="idLoginDialog">
+            The website require login to access the contents
+            <form>
+              <p>
+                <label>
+                    Account:
+                    <input id="idAccount" maxlength="20"></input>
+                </label>
+              </p>
+              <p>
+                <label>
+                    Password:
+                    <input id="idPassword" type="password" maxlength="20"></input>
+                </label>
+              </p>
+              <div id="idDiv3">
+                <button id="idBtnLogin" formmethod="dialog">Login</button>
+                <button id="idBtnCancelLogin" value="cancel" formmethod="dialog">Cancel</button>
+              </div>
+            </form>
+        </dialog>
     </body>
     <script src="./script/Utility.js"></script>
+    <script src="./script/LoginDialog.js"></script>
     <script src="./script/Input.js"></script>
     <script src="./script/Output.js"></script>
 </html>

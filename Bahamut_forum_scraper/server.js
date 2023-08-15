@@ -40,11 +40,11 @@ app.post('/', (req, res) => {
             AccessURL(res, req_body.value);
         } else if (req_body.method === 'onRequestLogin') {
             console.log('request login');
-            if (req_body.value.length != 2) {
+            if (req_body.value.length != 3) {
                 res.writeHead(404);
                 res.end('wrong account or password');
             } else
-                Login(req_body.value[0], req_body.value[1], res);
+                Login(req_body.value[0], req_body.value[1], req_body.value[2], res);
         } else
             res.end('ok');
     });
@@ -79,7 +79,7 @@ function AccessURL(res, url=null) {
         });
 }
 
-function Login(account, password, res) {
+function Login(url, account, password, res) {
     // TODO: handle login
     res.end('ok');
 }
