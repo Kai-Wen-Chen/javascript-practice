@@ -9,6 +9,8 @@ function requestPage(cur_page, total_page) {
         .then((response) => {
             if (!response.ok)
                 throw new Error(`HTTP error: ${response.status}`);
+            if (IS_CANCEL)
+                throw new Error('Cancelled');
             return response.text();
         })
         .then((text) => {
@@ -29,6 +31,8 @@ function requestPage(cur_page, total_page) {
                 requestPage(cur_page + 1, total_page);
             } else {
                 IS_LOADING = false;
+                IS_CANCEL = false;
+                document.getElementById(ElementId.ID_BTN_CANCEL).disabled = true;
                 updateUIForSearching();
                 console.log('done');
             }
@@ -188,8 +192,23 @@ function requestLogin() {
         }
         
         IS_LOADING = true;
+        document.getElementById(ElementId.ID_BTN_CANCEL).disabled = false;
         updateUIForSearching();
         START_ADDRESS = initializeURL();
         requestPage(1, totalPage);
     };
+}
+
+// Cancel search button event
+{
+    let btnCancel = document.getElementById(ElementId.ID_BTN_CANCEL);
+    btnCancel.addEventListener('click', onClick);
+
+    function onClick() {
+        if (IS_CANCEL)
+            return;
+
+        IS_CANCEL = true;
+        btnCancel.disabled = true;
+    }
 }

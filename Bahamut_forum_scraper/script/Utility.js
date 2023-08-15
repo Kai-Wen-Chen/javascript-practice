@@ -6,12 +6,14 @@ let START_ADDRESS = null;
 let KEYWORD = '';
 let WEBSITE_HTML = null;
 let IS_LOADING = false;
+let IS_CANCEL = false;
 
 const ElementId = {
     ID_ADDRESS: 'idAddress',
     ID_KEYWORD: 'idKeyword',
     ID_BTN_SEARCH_ADDRESS: 'idBtnSearchAddress',
     ID_BTN_SEARCH_KEYWORD: 'idBtnSearchKeyword',
+    ID_BTN_CANCEL: 'idBtnCancel',
     ID_TABLE: 'idTable',
     ID_STATE: 'idState'
 }
@@ -155,7 +157,7 @@ function extractContent(keyword='') {
 function initializeURL() {
     let currentAddress = ADDRESS;
     let page_index = currentAddress.search(PAGE_URL_PIECE);
-    console.log(page_index);
+    //console.log(page_index);
     if (page_index === -1)
         return currentAddress;
 
