@@ -1,4 +1,4 @@
-# 巴哈姆特討論串爬文器 (English README WIP)
+# 巴哈姆特討論串爬文器 ([English README WIP](https://github.com/Kai-Wen-Chen/javascript-practice/blob/main/Bahamut_forum_scraper/README.md#bahamut-forum-scraper-wip))
 
 ## 描述
 - 巴哈姆特還未支援限定單一討論串內的搜尋，倘若已經確定要搜尋某個討論串內的內容，必須要自己去過濾同一個哈拉版內其他討論串的結果
