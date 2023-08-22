@@ -38,13 +38,12 @@ app.post('/', (req, res) => {
             res.end('ok');
         } else if (req_body.method === 'onClickSearchKeywordBtn') {
             AccessURL(res, req_body.value);
-        } else if (req_body.method === 'onRequestLogin') {
-            console.log('request login');
-            if (req_body.value.length != 3) {
+        } else if (req_body.method === 'onAccessURLByToken') {
+            if (req_body.value.length != 2) {
                 res.writeHead(404);
-                res.end('wrong account or password');
+                res.end('wrong url or access token');
             } else
-                Login(req_body.value[0], req_body.value[1], req_body.value[2], res);
+                AccessURLByToken(res, req_body.value[0], req_body.value[1]);
         } else
             res.end('ok');
     });
@@ -59,11 +58,13 @@ server.listen(port, hostname, () => {
 
 /* ----------- Request handler function ------------- */
 const domain = 'https://forum.gamer.com.tw/C.php';
+const access_token_prefix = 'BAHARUNE=';
 
 function AccessURL(res, url=null) {
     if (!url || !url.startsWith(domain)) {
         res.writeHead(404);
         res.end('wrong url');
+        console.log('a');
         return;
     }
     
@@ -76,11 +77,32 @@ function AccessURL(res, url=null) {
         .catch((error) => {
             res.writeHead(404);
             res.end('wrong url');
+            console.error(error);
         });
 }
 
-function Login(url, account, password, res) {
-    // TODO: handle login
-    res.end('ok');
-}
+function AccessURLByToken(res, url=null, access_token=null) {
+    if (!url || !url.startsWith(domain) || !access_token) {
+        res.writeHead(404);
+        res.end('wrong url or access token');
+        return;
+    }
+    //console.log(access_token);
+    cookie = access_token_prefix + access_token;
 
+    axios.get(url, {
+        headers: {
+            withCredentials: true,
+            Cookie: cookie
+        }
+    })
+        .then((axios_res) => {
+            res.setHeader('Content-Type', 'text/html');
+            res.writeHead(200);
+            res.end(axios_res.data);
+        })
+        .catch((error) => {
+            res.writeHead(404);
+            res.end('wrong url');
+        });
+}

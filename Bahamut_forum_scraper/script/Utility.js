@@ -5,6 +5,7 @@ let ADDRESS = null;
 let START_ADDRESS = null;
 let KEYWORD = '';
 let WEBSITE_HTML = null;
+let ACCESS_TOKEN = '';
 let IS_LOADING = false;
 let IS_CANCEL = false;
 
@@ -20,7 +21,8 @@ const ElementId = {
     ID_BTN_LOGIN: 'idBtnLogin',
     ID_BTN_CANCEL_LOGIN: 'idBtnCancelLogin',
     ID_ACCOUNT: 'idAccount',
-    ID_PASSWORD: 'idPassword'
+    ID_PASSWORD: 'idPassword',
+    ID_ACCESS_TOKEN: 'idAccessToken'
 }
 
 const ElementClass = {
@@ -180,22 +182,30 @@ function appendPageToURL(url, page=1) {
     return url + '&' + PAGE_URL_PIECE + page.toString();
 }
 
-function requestLogin(account='', password='') {
-    // TODO: Handle login response
-    let body = createRequestBody(value=['onRequestLogin', [ADDRESS, account, password]]);
+function accessURLByToken() {
+    let body = createRequestBody(value=['onAccessURLByToken', [ADDRESS, ACCESS_TOKEN]]);
     fetch(`http://${HOSTNAME}:${PORT}`, {
         method: 'POST',
         body: JSON.stringify(body)
     })
         .then((response) => {
-            if (!response.ok)
-                throw new Error(`HTTP error: ${response.status}`);
             return response.text();
         })
         .then((text) => {
-            console.log(text);
+            //console.log(text);
+            let state = checkWebsiteValid(text);
+            updateStateUI(state);
+            if (state === WebsiteValid.Valid) {
+                WEBSITE_HTML = text;
+                updateKeywordUI(false);
+            }
+            else if (state === WebsiteValid.NeedLogin) {
+                console.log('need login');
+                updateKeywordUI(true);
+                showLoginDialog();
+            } else {
+                updateKeywordUI(true);
+            }
         })
-        .catch((error) => {
-            console.error(error);
-        })
+        .catch((error) => {});
 }

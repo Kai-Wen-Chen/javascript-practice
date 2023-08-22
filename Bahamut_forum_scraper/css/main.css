@@ -52,24 +52,17 @@ hr {
 
 #idStateTitle {
     position: relative;
-    top: 5px;
+    top: 7px;
     left: 30px;
     font-size: 20px;
 }
 
 #idState {
     position: relative;
-    top: 5px;
+    top: 7px;
     left: 30px;
     font-size: 20px;
     color: white;
-}
-
-#idBtnAgreeToLogin {
-    position: relative;
-    top: 40px;
-    left: -70%;
-    font-size: 16px;
 }
 
 /* ----------------- Div 2 ------------------- */
@@ -127,8 +120,8 @@ hr {
     background-color:rgb(252, 246, 238);
 }
 
-#idAccount {
-    margin-left: 8px;
+#idAccessToken {
+    width: 400px;
 }
 
 #idDiv3 {
