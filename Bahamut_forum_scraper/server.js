@@ -37,7 +37,14 @@ app.post('/', (req, res) => {
             //console.log(req_body.value);
             res.end('ok');
         } else if (req_body.method === 'onClickSearchKeywordBtn') {
-            AccessURL(res, req_body.value);
+            if (req_body.value.length != 2) {
+                res.writeHead(404);
+                res.end('wrong url or access token');
+            }
+            else if (req_body.value[1] === '')
+                AccessURL(res, req_body.value[0]);
+            else
+                AccessURLByToken(res, req_body.value[0], req_body.value[1]);
         } else if (req_body.method === 'onAccessURLByToken') {
             if (req_body.value.length != 2) {
                 res.writeHead(404);

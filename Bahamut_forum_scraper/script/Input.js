@@ -1,6 +1,6 @@
 function requestPage(cur_page, total_page) {
     let cur_address = appendPageToURL(START_ADDRESS, cur_page);
-    let body = createRequestBody(value=['onClickSearchKeywordBtn', cur_address]);
+    let body = createRequestBody(value=['onClickSearchKeywordBtn', [cur_address, ACCESS_TOKEN]]);
     let error_occur = false;
     fetch(`http://${HOSTNAME}:${PORT}`, {
         method: 'POST',
@@ -26,7 +26,7 @@ function requestPage(cur_page, total_page) {
         })
         .finally(() => {
             if (!error_occur && cur_page < total_page) {
-                let delay = Math.floor(Math.random()); // random delay [0.0, 1.0) seconds
+                let delay = Math.floor(Math.random() * 1000); // random delay [0.0, 1.0) seconds
                 setTimeout(() => {}, delay);
                 requestPage(cur_page + 1, total_page);
             } else {
