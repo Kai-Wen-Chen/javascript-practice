@@ -13,9 +13,14 @@
         for (let i=0; i<resultObj.length; i++) {
             let row = document.createElement('tr');
             row.className = ElementClass.CLASS_DATA_ROW;
+            
             let floor_cell = document.createElement('td');
             floor_cell.className = ElementClass.CLASS_CELL_FLOOR;
-            //TODO: Add href to floor
+            let a_floor = document.createElement('a');
+            a_floor.style.fontSize = '20px';
+            a_floor.href = '###';
+            floor_cell.appendChild(a_floor);
+            
             let content_cell = document.createElement('td');
             content_cell.className = ElementClass.CLASS_CELL_CONTENT;
 
@@ -27,8 +32,13 @@
         let floor_cells = document.getElementsByClassName(ElementClass.CLASS_CELL_FLOOR);
         let content_cells = document.getElementsByClassName(ElementClass.CLASS_CELL_CONTENT);
         for (let i=0; i<resultObj.length; i++) {
-            floor_cells[cur_rows_length + i].textContent = resultObj.floor_list[i];
-            content_cells[cur_rows_length + i].textContent = resultObj.content_list[i];
+            let floor = resultObj.floor_list[i];
+            let content = resultObj.content_list[i];
+            floor_cells[cur_rows_length + i].firstElementChild.textContent = floor;
+            floor_cells[cur_rows_length + i].firstElementChild.href = ADDRESS + '&to=' + floor;
+            floor_cells[cur_rows_length + i].firstElementChild.target = '_blank';
+            
+            content_cells[cur_rows_length + i].textContent = content;
         }
     };
 }

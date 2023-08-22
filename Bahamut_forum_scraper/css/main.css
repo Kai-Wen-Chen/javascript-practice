@@ -105,6 +105,10 @@ hr {
     opacity: 80%;
 }
 
+.CellFloor {
+    text-align: center;
+}
+
 .CellContent {
     text-align: left;
     vertical-align: top;
